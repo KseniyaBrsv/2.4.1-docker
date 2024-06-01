@@ -1,0 +1,105 @@
+Задание 1 - Docker CLI
+
+1.  Загрузите образ busybox последней версии
+
+➜  2.4.1-docker git:(main) ✗ docker run busybox
+Unable to find image 'busybox:latest' locally
+latest: Pulling from library/busybox
+c34182c7a03d: Pull complete
+Digest: sha256:5eef5ed34e1e1ff0a4ae850395cbf665c4de6b4b83a32a0bc7bcb998e24e7bbb
+Status: Downloaded newer image for busybox:latest
+
+2. Запустите новый контейнер busybox с командой ping сайта netology.ru, и количеством пингов 7, поименуйте контейнер pinger
+
+➜  2.4.1-docker git:(main) docker run --name pinger busybox ping -c 7 netology.ru
+PING netology.ru (104.22.40.171): 56 data bytes
+64 bytes from 104.22.40.171: seq=0 ttl=63 time=0.996 ms
+64 bytes from 104.22.40.171: seq=1 ttl=63 time=3.073 ms
+64 bytes from 104.22.40.171: seq=2 ttl=63 time=2.422 ms
+64 bytes from 104.22.40.171: seq=3 ttl=63 time=2.650 ms
+64 bytes from 104.22.40.171: seq=4 ttl=63 time=5.306 ms
+64 bytes from 104.22.40.171: seq=5 ttl=63 time=4.061 ms
+64 bytes from 104.22.40.171: seq=6 ttl=63 time=2.565 ms
+
+--- netology.ru ping statistics ---
+7 packets transmitted, 7 packets received, 0% packet loss
+round-trip min/avg/max = 0.996/3.010/5.306 ms
+
+3. Выведите на список всех контейнеров - запущенных и остановленных
+
+➜  2.4.1-docker git:(main) docker ps -a
+CONTAINER ID   IMAGE     COMMAND                  CREATED         STATUS                     PORTS     NAMES
+a6fda85315cd   busybox   "ping -c 7 netology.…"   9 seconds ago   Exited (0) 2 seconds ago             pinger
+
+4. Выведите на экран логи контейнера с именем pinger
+
+➜  2.4.1-docker git:(main) docker logs pinger
+PING netology.ru (104.22.40.171): 56 data bytes
+64 bytes from 104.22.40.171: seq=0 ttl=63 time=0.996 ms
+64 bytes from 104.22.40.171: seq=1 ttl=63 time=3.073 ms
+64 bytes from 104.22.40.171: seq=2 ttl=63 time=2.422 ms
+64 bytes from 104.22.40.171: seq=3 ttl=63 time=2.650 ms
+64 bytes from 104.22.40.171: seq=4 ttl=63 time=5.306 ms
+64 bytes from 104.22.40.171: seq=5 ttl=63 time=4.061 ms
+64 bytes from 104.22.40.171: seq=6 ttl=63 time=2.565 ms
+
+--- netology.ru ping statistics ---
+7 packets transmitted, 7 packets received, 0% packet loss
+round-trip min/avg/max = 0.996/3.010/5.306 ms
+
+5. Запустите второй раз контейнера с именем pinger
+
+➜  2.4.1-docker git:(main) docker start pinger
+pinger
+
+6. Выведите на список всех контейнеров - запущенных и остановленных
+
+➜  2.4.1-docker git:(main) docker ps -a
+CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS         PORTS     NAMES
+a6fda85315cd   busybox   "ping -c 7 netology.…"   26 seconds ago   Up 6 seconds             pinger
+
+7. Выведите на экран логи контейнера с именем pinger
+
+➜  2.4.1-docker git:(main) docker logs pinger
+PING netology.ru (104.22.40.171): 56 data bytes
+64 bytes from 104.22.40.171: seq=0 ttl=63 time=0.996 ms
+64 bytes from 104.22.40.171: seq=1 ttl=63 time=3.073 ms
+64 bytes from 104.22.40.171: seq=2 ttl=63 time=2.422 ms
+64 bytes from 104.22.40.171: seq=3 ttl=63 time=2.650 ms
+64 bytes from 104.22.40.171: seq=4 ttl=63 time=5.306 ms
+64 bytes from 104.22.40.171: seq=5 ttl=63 time=4.061 ms
+64 bytes from 104.22.40.171: seq=6 ttl=63 time=2.565 ms
+
+--- netology.ru ping statistics ---
+7 packets transmitted, 7 packets received, 0% packet loss
+round-trip min/avg/max = 0.996/3.010/5.306 ms
+PING netology.ru (104.22.40.171): 56 data bytes
+64 bytes from 104.22.40.171: seq=0 ttl=63 time=0.674 ms
+64 bytes from 104.22.40.171: seq=1 ttl=63 time=7.521 ms
+64 bytes from 104.22.40.171: seq=2 ttl=63 time=1.060 ms
+64 bytes from 104.22.40.171: seq=3 ttl=63 time=6.213 ms
+64 bytes from 104.22.40.171: seq=4 ttl=63 time=8.996 ms
+64 bytes from 104.22.40.171: seq=5 ttl=63 time=4.269 ms
+64 bytes from 104.22.40.171: seq=6 ttl=63 time=1.328 ms
+
+--- netology.ru ping statistics ---
+7 packets transmitted, 7 packets received, 0% packet loss
+round-trip min/avg/max = 0.674/4.294/8.996 ms
+
+8. Определите по логам общее количество запусков команды ping и какое общее количество отправленых запросов
+
+➜  2.4.1-docker git:(main) docker logs pinger | grep "ping" | wc -l
+       2
+
+9. Удалите контейнер с именем pinger
+
+➜  2.4.1-docker git:(main) docker rm pinger
+pinger
+
+10. Удалите образ busybox
+
+➜  2.4.1-docker git:(main) docker rmi busybox
+Untagged: busybox:latest
+Untagged: busybox@sha256:5eef5ed34e1e1ff0a4ae850395cbf665c4de6b4b83a32a0bc7bcb998e24e7bbb
+Deleted: sha256:23d6e6de0b63623e44a1ec59746682c77f197702ae77264eb287fa5119256f8a
+Deleted: sha256:4712e14e7e366854795a6664128e48cf7ad6199328abd09caadde8f5f3c0aa06

@@ -1,0 +1,35 @@
+Задание 2 - Environment Variables
+
+➜  2.4.1-docker git:(main) ✗ docker run -it --name mynode -e NAME=kseniya -e SURNAME=borisova node:20.10
+Unable to find image 'node:20.10' locally
+20.10: Pulling from library/node
+b66b4ecd3ecf: Pull complete
+6c641d36985b: Pull complete
+ddd8544b6e15: Pull complete
+ae58c7c06d64: Pull complete
+5d0523b85d8e: Pull complete
+3b8c33b8dbe0: Pull complete
+a6e645e016f2: Pull complete
+ad64183b4521: Pull complete
+Digest: sha256:8d0f16fe841577f9317ab49011c6d819e1fa81f8d4af7ece7ae0ac815e07ac84
+Status: Downloaded newer image for node:20.10
+Welcome to Node.js v20.10.0.
+Type ".help" for more information.
+> console.log("Привет, " + process.env.NAME + " " + process.env.SURNAME + "!")
+Привет, kseniya borisova!
+
+➜  2.4.1-docker git:(main) ✗ docker stop mynode
+mynode
+
+docker rmi node:20.10
+Untagged: node:20.10
+Untagged: node@sha256:8d0f16fe841577f9317ab49011c6d819e1fa81f8d4af7ece7ae0ac815e07ac84
+Deleted: sha256:539b1647c260937bb4d2d9a9c912412932ec2c5c689220d1be9815684bccc8b0
+Deleted: sha256:af2890db592dae64636750e53fd720c5792cce793dcde47d6a8f10faa7ca6ea5
+Deleted: sha256:e52453015218b16f1fa4f617c96552805af189bf3b17761da0ac3c3f27dda5d0
+Deleted: sha256:be517085a925ab40509d77ea8d94b35268a8baab80188c819b4561e54529fc53
+Deleted: sha256:6cfaf966ec5b74c314bd18f650366dcb5142afbff550cf7a0c707a2df40f7c79
+Deleted: sha256:cce4ffc3b360ada665f321a41b58beebc56e7e70adb31fa4655ef08ffe41e74b
+Deleted: sha256:9b74066b18ebc24bb3339060cb611fbd58abe5afa6a63328e45de325bfb63e8e
+Deleted: sha256:163c69ad08fc965715fb630e6e32bac96f83962508dcb825a2ee282af734fe86
+Deleted: sha256:3fc083f4e08dd7ab0386b7435c50e86fe37e402f2002987607e712d8a6d29fe5
